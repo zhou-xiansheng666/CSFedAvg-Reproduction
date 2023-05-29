@@ -1,0 +1,61 @@
+global_config:
+  seed: 5959
+  device: "cuda"
+  is_mp: True
+---
+data_config:
+  data_path: "./data/"
+  dataset_name: "MNIST"
+  num_shards: 200
+  iid: Hybrid_One
+---
+fed_config:
+  P: 0.05
+  C: 0.1
+  K: 100
+  R: 100
+  E: 5
+  B: 10
+  criterion: torch.nn.CrossEntropyLoss #交叉熵损失函数
+  optimizer: torch.optim.SGD           #随机梯度下降算法
+---
+optim_config:
+  lr: 0.005
+  momentum: 0.9                       #惯性
+---
+init_config:
+  init_type: "xavier"                 #权重初始化方法，一定程序上防止梯度消失和梯度爆炸
+  init_gain: 1.0
+  gpu_ids: [0]
+---
+model_config: 
+  #name: TwoNN
+  #in_features: 784
+  #num_hiddens: 200
+  #num_classes: 10
+
+#  name: CNN2
+#  in_channels: 3
+#  hidden_channels: 32
+#  num_hiddens: 512
+#  num_classes: 10
+
+  name: CNN
+  in_channels: 1
+  hidden_channels: 32
+  num_hiddens: 512
+  num_classes: 10
+
+#  name: CNN
+#  in_channels: 1
+#  hidden_channels: 32
+#  num_hiddens: 512
+#  num_classes: 37
+
+
+---
+log_config:
+  log_path: "./log/"
+  log_name:  "FL.log"
+  tb_port: 5252
+  tb_host: "0.0.0.0"
